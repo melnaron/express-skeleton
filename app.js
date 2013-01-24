@@ -35,7 +35,7 @@ for (var i = 0; i < controllers.length; i++) {
 			continue;
 		}
 		app[action.method](action.path, action.action);
-		console.log('mapped: '+controllers[i]+'.'+j);
+		//console.log('mapped: '+controllers[i]+'.'+j);
 	}
 }
 

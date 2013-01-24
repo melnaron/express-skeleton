@@ -1,9 +1,9 @@
 express-skeleton
 ================
 
-Basic Express skeleton app with 404 &amp; 500 error handlers and EJS tempale engine
+Basic Express 3.0 skeleton app with 404 &amp; 500 error handlers and EJS tempale engine
 
-## Usage
+### Usage
 
 Just clone or download and extract contents of this repository, then run `npm install`:
 

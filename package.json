@@ -1,7 +1,7 @@
 {
 	"name": "express-skeleton",
 	"version": "0.0.2",
-	"description": "Basic Express skeleton app with 404 & 500 error handlers and EJS tempale engine",
+	"description": "Basic Express 3.0 skeleton app with 404 & 500 error handlers and EJS tempale engine",
 	"author": {
 		"name": "Dmitry Gureev",
 		"email": "melnaron@gmail.com"
