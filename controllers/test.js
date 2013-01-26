@@ -1,37 +1,25 @@
 /**
  * Test controller
  */
-module.exports = {
+module.exports = function(app) {
 
 	/**
-	 * Index action
-	 *
-	 * URL: /test
+	 * Index test action
 	 */
-	index: {
-		method: 'get',
-		path: 	'/test',
-		action: function(req, res) {
-			res.locals.title = 'Test';
-			res.locals.time = 'test time, baby!';
-			res.render('index');
-		}
-	},
+	app.get('/test', function(req, res) {
+		res.locals.title = 'Test';
+		res.locals.time = 'test time, baby!';
+		res.render('index');
+	});
 
 	/**
-	 * Error action
+	 * Error test action
 	 * Fake error in the action of the controller
-	 *
-	 * URL: /test/error
 	 */
-	error: {
-		method: 'get',
-		path: 	'/test/error',
-		action: function(req, res) {
-			res.locals.title = 'Test / Error';
-			res.locals.time = getTime(); // getTime() is not defined
-			res.render('index');
-		}
-	}
+	app.get('/test/error', function(req, res) {
+		res.locals.title = 'Test / Error';
+		res.locals.time = getTime(); // getTime() is not defined
+		res.render('index');
+	});
 
 };

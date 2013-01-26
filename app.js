@@ -1,12 +1,18 @@
 // Load modules
 var express = require('express'),
-	engine = require('ejs-locals');
+	engine  = require('ejs-locals');
 
 // Create Express app object
 var app = express();
 
 // Create an array of used controllers
 var controllers = ['main', 'test'];
+
+// Setup global variables for responses
+app.locals({
+	title: 'Basic Express skeleton app',
+	year: (new Date).getFullYear().toString()
+});
 
 // Setup Express template engine
 app.engine('html', engine);
@@ -15,29 +21,16 @@ app.engine('html', engine);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
-// Setup global app params
-app.locals({
-	title: 'Basic Express skeleton app',
-	year: (new Date()).getFullYear().toString()
-});
-
 // Setup Express middlewares
 app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.methodOverride());
+app.use(express.static(__dirname + '/public'));
 
-// Map controllers and thier actions
-for (var i = 0; i < controllers.length; i++) {
-	var controller = require('./controllers/'+controllers[i]);
-	for (var j in controller) {
-		var action = controller[j];
-		if (['all', 'get', 'post', 'put', 'delete'].indexOf(action.method) == -1) {
-			continue;
-		}
-		app[action.method](action.path, action.action);
-		//console.log('mapped: '+controllers[i]+'.'+j);
-	}
-}
+// Initialize controllers
+controllers.forEach(function(controller) {
+	require('./controllers/'+controller)(app);
+});
 
 // Setup 404 errors middleware
 app.use(function(req, res, next) {
@@ -52,6 +45,17 @@ app.use(function(err, req, res, next) {
 	console.log(err.stack);
 	res.status(500).send('--> Error: 500 Internal Server Error ('+req.originalUrl+')');
 });
+
+// Setup graceful shutdown handler
+function onShutdown() {
+	console.log('');
+	console.log('Exiting...');
+	// Some shutdown logic here...
+	// ...
+	process.exit();
+}
+process.on('SIGINT',  onShutdown); // CTRL+C
+process.on('SIGTERM', onShutdown); // kill -15 <pid>
 
 // Listen for requests
 app.listen(7001);

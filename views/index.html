@@ -8,6 +8,13 @@
 		<p>Count <%= (i + 1) %></p>
 	<% } %>
 	<p>time: <%= time %></p>
+	<p>
+		Go to:
+		<a href="/">index page</a> |
+		<a href="/test">test page</a> |
+		<a href="/test/notfound" class="error">test not found page</a> |
+		<a href="/test/error" class="error">test error page</a>
+	</p>
 </div>
 
 <% include widget/footer.html %>

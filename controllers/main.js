@@ -1,32 +1,31 @@
 /**
  * Main controller
  */
-module.exports = {
+module.exports = function(app) {
+
+	/**
+	 * Get current timestamp
+	 * This example function shows how you can create private controller methods
+	 *
+	 * @return {Number}
+	 */
+	function getTime() {
+		return (new Date).getTime();
+	}
 
 	/**
 	 * Index action
-	 *
-	 * URL: /
 	 */
-	index: {
-		method: 'get',
-		path: 	'/',
-		action: function(req, res) {
-			res.locals.time = (new Date()).getTime().toString();
-			res.render('index');
-		}
-	},
+	app.get('/', function(req, res) {
+		res.locals.time = getTime();
+		res.render('index');
+	});
 
 	/**
-	 * Test action without method (this action must not be mapped)
-	 *
-	 * URL: /main/no-method
+	 * Test action of all methods supported
 	 */
-	noMethod: {
-		path: 	'/main/no-method',
-		action: function(req, res) {
-			res.send('no-no-no!');
-		}
-	}
+	app.all('/main/all-methods', function(req, res) {
+		res.send('method: '+req.method);
+	});
 
 };
